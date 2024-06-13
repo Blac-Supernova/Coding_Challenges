@@ -24,5 +24,23 @@ public with sharing class DataLord {
         List<Contact> hotContacts = [Select firstName, LastName, Account.Name, phone, email FROM Contact Where Account.Rating = 'Hot'];
         return hotContacts;
     }
+    public static Account  MostPopularAccount(){
+        //Find the most reocurring accountID from contacts
+        AggregateResult[] popularAccountFromContacts = [SELECT AccountId, COUNT(Id) 
+        FROM Contact 
+        GROUP BY AccountId 
+        ORDER BY COUNT(Id) DESC 
+        LIMIT 1];
+        //Extract the accountId from the result
+        Id popularAccountId = (Id)popularAccountFromContacts[0].get('AccountId');
+        //Plug in id value from the previous query to find the Account Name
+        Account themostPopularAccount = [SELECT Name From Account WHERE Id = :popularAccountId];
+        return theMostPopularAccount;
+    }
+    
+    public static void FindTom(){
+        List<List<sObject>> findingTom = [Find 'Tom' IN ALL FIELDS RETURNING Lead(Name), Contact(FirstName, LastName)];
+        System.debug(findingTom);
+    }
     
 }
