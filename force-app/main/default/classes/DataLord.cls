@@ -42,5 +42,11 @@ public with sharing class DataLord {
         List<List<sObject>> findingTom = [Find 'Tom' IN ALL FIELDS RETURNING Lead(Name), Contact(FirstName, LastName)];
         System.debug(findingTom);
     }
+
+    public static void FindAO(){
+        String soslQuery = 'Find {*a* OR *o*} IN ALL FIELDS RETURNING Account(Id,Name)';
+        List<List<sObject>> findingAorO = Search.query(soslQuery);
+        System.debug(findingAorO);
+    }
     
 }
