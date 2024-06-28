@@ -5,17 +5,15 @@ public with sharing class Vehicle {
     private Integer Speed;
     private String Name;
     private Integer Occupants;
-    private final Integer Capacity;
+    public static final Integer Capacity = 4;
+    // Because static constants can only be assigned upon declaration, adding a validation statement would be redundant.
     protected List<Medium> media;
-    public Vehicle(Integer speed, String Name, Integer Occupants, Integer Capacity, List<Medium> media) {
+    public Vehicle(Integer speed, String Name, Integer Occupants, List<Medium> media) {
         if(speed > 0){
             this.Speed = speed;
         }
         if(Occupants > 0){
             this.Occupants = Occupants;
-        }
-        if(Capacity >=1){
-            this.Capacity = Capacity;
         }
         this.media = media;
         this.Name = Name;  
