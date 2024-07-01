@@ -57,7 +57,7 @@ public abstract class Vehicle {
         return Speed;
 
     }
-    public abstract void Turn(String direction);
+    public abstract void Turn(String direction, Integer degrees);
 
     public override String ToString() {
         String mediaString = '';
