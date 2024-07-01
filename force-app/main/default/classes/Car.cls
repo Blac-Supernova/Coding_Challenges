@@ -3,6 +3,12 @@ public class Car extends Vehicle {
     private integer TireRotation;
     private String Gear;
 
+    public Car(Integer speed, String name, Integer occupants, Integer capacity, List<Medium> media, Integer steeringRotation, Integer tireRotation, String gear) {
+        super(speed, name, occupants, capacity, media);
+        initializeCar(steeringRotation, tireRotation, gear);
+    }
+
+        //Default values for car related actions
     public Car(Integer Speed, String Name, Integer Occupants, Integer Capacity, List<Medium> media, Integer SteeringRotation, Integer TireRotation, String Gear) {
         super(Speed, Name, Occupants, Capacity, new List<Medium>{Medium.LAND});
         this.SteeringRotation = 0;
@@ -11,23 +17,28 @@ public class Car extends Vehicle {
 
     }
 
-    private void setSteeringRotation(Integer SteeringRotation){
-        if(SteeringRotation != null && SteeringRotation >= -1440 && SteeringRotation <= 1440){
-            this.SteeringRotation = SteeringRotation;
-        } else{this.SteeringRotation = 0;}
+    private void initializeCar(Integer steeringRotation, Integer tireRotation, String gear) {
+        this.SteeringRotation = (steeringRotation != null && steeringRotation >= -1440 && steeringRotation <= 1440) ? steeringRotation : 0;
+        this.TireRotation = (tireRotation != null && tireRotation >= -90 && tireRotation <= 90) ? tireRotation : 0;
+        this.Gear = (gear != null) ? gear : calculateGear(getSpeed());
     }
 
-    private void setTireRotation(Integer TireRotation){
-        if(TireRotation != null && TireRotation >= -90 && TireRotation <= 90){
-            this.TireRotation = TireRotation;
-        } else{this.TireRotation = 0;}
-    }
 
     public Integer getTireRotation(){
         return TireRotation;
     }
     public String getGear(){
         return Gear;
+    }
+
+    public override Integer accelerate(Integer speedChange) {
+        Integer newSpeed = super.accelerate(speedChange);
+        this.Gear = calculateGear(newSpeed);
+        return newSpeed;
+    }
+
+    private String calculateGear(Integer speed) {
+        return String.valueOf((Integer)Math.ceil(0.4444 * (Math.sqrt(speed))));
     }
 
     public override void Turn(String direction, Integer degrees) {
