@@ -51,4 +51,10 @@ public with sharing class Vehicle {
     public String getName(){
         return Name;
     }
+
+    public Integer Accelerate(Integer speedChange){
+        this.Speed = Speed + speedChange;
+        return Speed;
+
+    }
 }
