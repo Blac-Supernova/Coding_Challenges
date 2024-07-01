@@ -7,6 +7,11 @@ public abstract class Vehicle {
     private Integer Occupants;
     private final Integer Capacity;
     protected List<Medium> media;
+
+    public Vehicle(Integer speed, String name, Integer occupants, Integer capacity){
+    this(speed, name, occupants, capacity, new List<Medium>{Medium.LAND}); }
+
+    //Parameter Constructor
     public Vehicle(Integer speed, String Name, Integer Occupants, Integer Capacity, List<Medium> media) {
         if(speed!=null && speed >= 0){
             this.Speed = speed;
