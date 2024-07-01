@@ -1,4 +1,4 @@
-public with sharing class Vehicle {
+public abstract class Vehicle {
     public enum Medium {
         LAND, AIR, WATER
     }
@@ -57,4 +57,20 @@ public with sharing class Vehicle {
         return Speed;
 
     }
+    public abstract void Turn(String direction);
+
+    public override String ToString() {
+        String mediaString = '';
+        for (Medium m : media) {
+            mediaString += m.name() + ' ';
+        }
+
+        return 'Vehicle Details:\n' +
+               'Speed: ' + speed + '\n' +
+               'Media: ' + mediaString.trim() + '\n' +
+               'Name: ' + name + '\n' +
+               'Occupants: ' + occupants;
+    }
+
+
 }
